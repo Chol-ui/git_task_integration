@@ -1,34 +1,23 @@
 pipeline {
    agent any
-
-environment {
-   DOCKER_IMAGE ="chakripenugonda/nginx-image:latest"
-}
-
-stages {
-    stage('checkout') {
-       steps {
-          //checkout code from the repository
-          git 'https://github.com/Chol-ui/git_task_integration.git'
-      }
-   }
-
-stage('build Docker Image') {
-  steps {
-      script {
-          docker.withregistry('https://index.docker.io/v1/' , 'dockerhub-credentials') {
-              docker.image("${DOCKER_IMAGE}")/push()
-           }
+ stages {
+        stage('git integration') {
+            steps {
+                git branch:'master', url:''
+                echo 'git cloned'
+            }
         }
-    }
-}
-
-post {
-   always {
-       //clean up after the build 
-      cleanws()
-    }
- }
+        
+        stage('pull') {
+            steps {
+                path: C:\Git\jenkins_task1
+                bat 'git pull https://github.com/Chol-ui/jenkins_task1.git'
+                echo 'sucessfully pulled'
+            } 
+       } 
+   } 
+}            
+ 
 
 
 
