@@ -20,20 +20,10 @@ pipeline {
            steps {
               script {
                     docker.build -t imag20 .
-                        docker run -d -p 8017:80 imag20
+                        docker run -d -p --name cntr40 8017:80 imag20
               }
            }
-        }
-           stages {
-        stage('Checkout') {
-            steps {
-                // Checkout SCM (Source Control Management) sources
-                checkout scm
-            }
-        }
-        // Additional stages can follow here
-    }
-    // Post-build actions, notifications, etc.
+      }
    }
- }
-} 
+}
+
