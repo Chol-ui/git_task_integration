@@ -24,9 +24,16 @@ pipeline {
               }
            }
         }
-     }
-  }
-}
-
-
-
+           stages {
+        stage('Checkout') {
+            steps {
+                // Checkout SCM (Source Control Management) sources
+                checkout scm
+            }
+        }
+        // Additional stages can follow here
+    }
+    // Post-build actions, notifications, etc.
+   }
+ }
+} 
