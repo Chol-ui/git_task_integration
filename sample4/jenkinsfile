@@ -3,22 +3,30 @@ pipeline {
  stages {
         stage('git integration') {
             steps {
-                git branch:'master', url:''
-                echo 'git cloned'
+                git branch:'master', url:'https://github.com/Chol-ui/git_task_integration.git'
+                echo 'git integrated'
             }
         }
         
-        stage('pull') {
+        stage('build') {
             steps {
-                path: C:\Git\jenkins_task1
-                bat 'git pull https://github.com/Chol-ui/jenkins_task1.git'
-                echo 'sucessfully pulled'
+                script {
+                    docker.build('imag20')
             } 
        } 
    } 
-}            
- 
 
+   stage('container') {
+           steps {
+              script {
+                    docker.build -t imag20 .
+                        docker run -d -p 8017:80 imag20
+              }
+           }
+        }
+     }
+  }
+}
 
 
 
